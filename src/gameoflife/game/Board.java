@@ -16,7 +16,7 @@ public class Board {
     private void createCells() {
         for (int i = 0; i < blocksHigh; ++i) {
             for (int j = 0; j < blocksWide; ++j) {
-                cells[i][j] = new Cell(j, i);
+                cells[i][j] = new Cell();
             }
         }
     }
@@ -60,7 +60,7 @@ public class Board {
         return liveNeighbours;
     }
 
-    public boolean isNewCellStateAlive(int verticalPosition, int horizontalPosition, int liveNeighbours) {
+    public boolean isCellAlive(int verticalPosition, int horizontalPosition, int liveNeighbours) {
         if (cells[verticalPosition][horizontalPosition].isAlive()) {
             switch (liveNeighbours) {
                 case 2:

@@ -3,13 +3,9 @@ package gameoflife.game;
 public class Cell {
 
     private boolean isAlive;
-    private final int horizontalLocation;
-    private final int verticalLocation;
 
-    Cell(int horizontalLocation, int verticalLocation) {
+    Cell() {
         this.isAlive = false;
-        this.horizontalLocation = horizontalLocation;
-        this.verticalLocation = verticalLocation;
     }
 
     public void setInitialValue() {
@@ -22,14 +18,6 @@ public class Cell {
 
     public void setIsAlive(boolean newState) {
         this.isAlive = newState;
-    }
-
-    public int getHorizontalLocation() {
-        return horizontalLocation;
-    }
-
-    public int getVerticalLocation() {
-        return verticalLocation;
     }
 
 }

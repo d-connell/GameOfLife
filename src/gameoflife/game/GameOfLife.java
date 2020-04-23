@@ -41,7 +41,7 @@ public class GameOfLife {
         for (int i = 0; i < blocksHigh; ++i) {
             for (int j = 0; j < blocksHigh; ++j) {
                 int liveNeighbours = boards[0].countLiveNeighbours(i, j);
-                boolean newState = boards[0].isNewCellStateAlive(i, j, liveNeighbours);
+                boolean newState = boards[0].isCellAlive(i, j, liveNeighbours);
                 boards[1].setCellState(i, j, newState);
             }
         }
