@@ -34,30 +34,32 @@ public class Board {
 
         int columnToCheck = horizontalPosition - 1;
         if (columnToCheck >= 0 && columnToCheck < blocksWide) {
-            liveNeighbours = checkRows(columnToCheck, verticalPosition, liveNeighbours, 1);
+            liveNeighbours += countLiveCellsInColumn(columnToCheck, verticalPosition, 1);
         }
 
         columnToCheck = horizontalPosition;
-        // middle cell of this column is the active cell so do not check it, interval increased to 2
+        // The middle cell of this column is the active cell should not be checked; interval increased to 2.
         if (columnToCheck >= 0 && columnToCheck < blocksWide) {
-            liveNeighbours = checkRows(columnToCheck, verticalPosition, liveNeighbours, 2);
+            liveNeighbours += countLiveCellsInColumn(columnToCheck, verticalPosition, 2);
         }
 
         columnToCheck = horizontalPosition + 1;
         if (columnToCheck >= 0 && columnToCheck < blocksWide) {
-            liveNeighbours = checkRows(columnToCheck, verticalPosition, liveNeighbours, 1);
+            liveNeighbours += countLiveCellsInColumn(columnToCheck, verticalPosition, 1);
 
         }
+
         return liveNeighbours;
     }
 
-    public int checkRows(int columnToCheck, int verticalPosition, int liveNeighbours, int interval) {
+    public int countLiveCellsInColumn(int columnToCheck, int verticalPosition, int interval) {
+        int liveCells = 0;
         for (int i = verticalPosition - 1; i <= verticalPosition + 1; i += interval) {
             if (i >= 0 && i < blocksHigh) {
-                liveNeighbours = cells[i][columnToCheck].isAlive() ? ++liveNeighbours : liveNeighbours;
+                liveCells += cells[i][columnToCheck].isAlive() ? 1 : 0;
             }
         }
-        return liveNeighbours;
+        return liveCells;
     }
 
     public boolean isCellAlive(int verticalPosition, int horizontalPosition, int liveNeighbours) {

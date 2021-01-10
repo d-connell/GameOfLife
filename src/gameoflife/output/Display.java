@@ -13,7 +13,7 @@ public class Display extends Canvas {
     }
 
     private void checkDimensions(int width, int height) {
-        if (width <=0 || height <= 0) {
+        if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Display dimensions cannot be negative.");
         }
     }

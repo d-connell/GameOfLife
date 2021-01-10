@@ -7,25 +7,25 @@ public class GameOfLife {
     private final int blocksWide;
     private final int blocksHigh;
     private final GameRenderer gameRenderer;
-    private final Board[] boards;
+    private final Board currentBoard;
+    private final Board newBoard;
 
     public GameOfLife(int blocksWide, int blocksHigh) {
         this.blocksWide = blocksWide;
         this.blocksHigh = blocksHigh;
         this.gameRenderer = new GameRenderer(blocksWide, blocksHigh, "Game Of Life");
-        this.boards = new Board[2];
-        this.boards[0] = new Board(blocksWide, blocksHigh);
-        this.boards[0].setStartValues();
-        this.boards[1] = new Board(blocksWide, blocksHigh);
+        this.currentBoard = new Board(blocksWide, blocksHigh);
+        this.currentBoard.setStartValues();
+        this.newBoard = new Board(blocksWide, blocksHigh);
     }
 
     public void start() {
-        gameRenderer.display(boards[0]);
+        gameRenderer.display(currentBoard);
         while (true) {
             pause();
             calculateNextBoard();
             copyNextBoardToCurrentBoard();
-            gameRenderer.display(boards[0]);
+            gameRenderer.display(currentBoard);
         }
     }
 
@@ -39,10 +39,10 @@ public class GameOfLife {
 
     private void calculateNextBoard() {
         for (int i = 0; i < blocksHigh; ++i) {
-            for (int j = 0; j < blocksHigh; ++j) {
-                int liveNeighbours = boards[0].countLiveNeighbours(i, j);
-                boolean newState = boards[0].isCellAlive(i, j, liveNeighbours);
-                boards[1].setCellState(i, j, newState);
+            for (int j = 0; j < blocksWide; ++j) {
+                int liveNeighbours = currentBoard.countLiveNeighbours(i, j);
+                boolean newState = currentBoard.isCellAlive(i, j, liveNeighbours);
+                newBoard.setCellState(i, j, newState);
             }
         }
     }
@@ -50,8 +50,8 @@ public class GameOfLife {
     private void copyNextBoardToCurrentBoard() {
         for (int i = 0; i < blocksHigh; ++i) {
             for (int j = 0; j < blocksWide; ++j) {
-                boolean newState = boards[1].getCellState(i, j);
-                boards[0].setCellState(i, j, newState);
+                boolean newState = newBoard.getCellState(i, j);
+                currentBoard.setCellState(i, j, newState);
             }
         }
     }
